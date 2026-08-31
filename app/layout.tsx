@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/lib/cart-context";
 import { Navbar } from "@/components/Navbar";
+import { NextAuthProvider } from "@/components/NextAuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-[#0f0f0f] text-white antialiased">
+        <NextAuthProvider>
         <CartProvider>
           <Navbar />
           <main className="flex-1">{children}</main>
@@ -39,12 +41,13 @@ export default function RootLayout({
                   Authentic PlayStation 2 dead stock lots from Delhi, India
                 </p>
                 <p className="text-gray-600 text-xs">
-                  © {new Date().getFullYear()} Pllum Legno
+                  &copy; {new Date().getFullYear()} Pllum Legno
                 </p>
               </div>
             </div>
           </footer>
         </CartProvider>
+        </NextAuthProvider>
       </body>
     </html>
   );

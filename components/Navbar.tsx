@@ -2,8 +2,11 @@
 
 import Link from "next/link";
 import { CartIcon } from "./CartIcon";
+import { useSession, signOut } from "next-auth/react";
 
 export function Navbar() {
+  const { data: session } = useSession();
+
   return (
     <nav className="bg-[#0a0a0a] border-b border-[#1a1a1a] sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -42,9 +45,25 @@ export function Navbar() {
             >
               Accessories
             </Link>
+            {session && (
+              <Link
+                href="/stock"
+                className="text-[#003087] hover:text-blue-400 transition-colors text-sm font-semibold"
+              >
+                Stock
+              </Link>
+            )}
           </div>
 
           <div className="flex items-center gap-4">
+            {session ? (
+              <button
+                onClick={() => signOut()}
+                className="text-gray-400 hover:text-white transition-colors text-xs"
+              >
+                Sign out
+              </button>
+            ) : null}
             <CartIcon />
           </div>
         </div>
