@@ -41,7 +41,7 @@ export default function RootLayout({
                   Authentic PlayStation 2 dead stock lots from Delhi, India
                 </p>
                 <p className="text-gray-600 text-xs">
-                  &copy; {new Date().getFullYear()} Pllum Legno
+                  © {new Date().getFullYear()} Pllum Legno
                 </p>
               </div>
             </div>

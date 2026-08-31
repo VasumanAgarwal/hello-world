@@ -63,7 +63,7 @@ After registration, you will land on the app overview page.
 
 In a terminal, run:
 ```bash
-openssl rand -base64 32
+npx auth secret
 ```
 Copy the output and replace `your-secret-here` in `.env.local`.
 

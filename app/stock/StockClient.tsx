@@ -13,7 +13,6 @@ export function StockClient() {
   const [excludedGroupsInput, setExcludedGroupsInput] = useState("");
   const [excludedGroups, setExcludedGroups] = useState<string[]>([]);
 
-  // Load excluded groups from localStorage
   useEffect(() => {
     try {
       const stored = localStorage.getItem(EXCLUDED_GROUPS_KEY);
@@ -66,11 +65,9 @@ export function StockClient() {
 
   const filteredRows = useMemo(() => {
     return rows.filter((row) => {
-      // Exclude new catalogue groups
       if (excludedGroups.some((g) => g.toLowerCase() === row.Group.toLowerCase())) {
         return false;
       }
-      // Search filter
       if (search.trim()) {
         const q = search.trim().toLowerCase();
         return (
@@ -123,7 +120,6 @@ export function StockClient() {
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Dead / Slow-Moving Stock</h1>
@@ -147,7 +143,6 @@ export function StockClient() {
           </div>
         </div>
 
-        {/* Exclusion Filter */}
         <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg p-4 mb-6">
           <p className="text-xs text-gray-400 mb-2 font-medium uppercase tracking-wider">
             Exclude New Catalogue Groups
@@ -174,7 +169,6 @@ export function StockClient() {
           )}
         </div>
 
-        {/* Search */}
         <div className="mb-4">
           <input
             type="text"
@@ -185,14 +179,12 @@ export function StockClient() {
           />
         </div>
 
-        {/* Error */}
         {error && (
           <div className="bg-red-900/20 border border-red-800 rounded-lg p-4 mb-6 text-red-300 text-sm">
             <strong>Error:</strong> {error}
           </div>
         )}
 
-        {/* Loading */}
         {loading && (
           <div className="text-center py-16 text-gray-500">
             <div className="inline-block w-6 h-6 border-2 border-[#003087] border-t-transparent rounded-full animate-spin mb-3" />
@@ -200,7 +192,6 @@ export function StockClient() {
           </div>
         )}
 
-        {/* Table */}
         {!loading && !error && (
           <>
             <p className="text-xs text-gray-500 mb-3">

@@ -38,7 +38,6 @@ export async function GET() {
     let rows: StockRow[] = [];
 
     if (filePath) {
-      // Use the direct path approach
       const encodedPath = encodeURIComponent(filePath);
       const rangeUrl = `https://graph.microsoft.com/v1.0/me/drive/root:/${encodedPath}:/workbook/worksheets/Sheet1/usedRange`;
 
@@ -66,7 +65,6 @@ export async function GET() {
       const rangeData: GraphUsedRangeResponse = await rangeRes.json();
       rows = parseUsedRange(rangeData);
     } else {
-      // Search for any .xlsx file in OneDrive
       const searchUrl = `https://graph.microsoft.com/v1.0/me/drive/root/search(q='.xlsx')`;
       const searchRes = await fetch(searchUrl, {
         headers: {
@@ -90,7 +88,6 @@ export async function GET() {
         );
       }
 
-      // Use the first xlsx file found
       const file = searchData.value[0];
       const driveId = file.parentReference?.driveId;
       const fileId = file.id;
@@ -120,7 +117,6 @@ export async function GET() {
       rows = parseUsedRange(rangeData);
     }
 
-    // Filter: show rows where Qty In Hand < 10
     const filtered = rows.filter((r) => r["Qty In Hand"] < 10);
 
     return Response.json({ rows: filtered });
@@ -146,7 +142,6 @@ function parseUsedRange(data: GraphUsedRangeResponse): StockRow[] {
     "Qty In Hand",
   ];
 
-  // Map column names to indices
   const colIndex: Record<string, number> = {};
   for (const col of expectedCols) {
     const idx = headers.indexOf(col);

@@ -17,14 +17,12 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, account }) {
-      // Persist the access token on first sign-in
       if (account) {
         token.accessToken = account.access_token;
       }
       return token;
     },
     async session({ session, token }) {
-      // Make access token available on the session
       (session as { accessToken?: string }).accessToken = token.accessToken as string | undefined;
       return session;
     },
